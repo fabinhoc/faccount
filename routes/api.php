@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\NotebookController;
+use App\Http\Controllers\TagController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -43,4 +44,13 @@ Route::group(['prefix' => '/notebook', 'middleware' => 'auth:sanctum', 'verified
     Route::get('/', [NotebookController::class, 'paginate']);
     Route::get('/{id}', [NotebookController::class, 'show']);
     Route::delete('/{id}', [NotebookController::class, 'destroy']);
+});
+
+Route::group(['prefix' => '/tag', 'middleware' => 'auth:sanctum', 'verified'], function () {
+    Route::post('/', [TagController::class, 'store']);
+    Route::put('/{id}', [TagController::class, 'update']);
+    Route::get('/get/all', [TagController::class, 'all']);
+    Route::get('/', [TagController::class, 'paginate']);
+    Route::get('/{id}', [TagController::class, 'show']);
+    Route::delete('/{id}', [TagController::class, 'destroy']);
 });
