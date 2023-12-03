@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\NotebookController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,4 +34,13 @@ Route::group(['prefix' => '/auth'], function () {
         ->post('/reset-password', [AuthenticationController::class, 'reset'])
         ->name('password.reset');
     Route::middleware(['auth:sanctum'])->post('/logout', [AuthenticationController::class, 'logout']);
+});
+
+Route::group(['prefix' => '/notebook', 'middleware' => 'auth:sanctum', 'verified'], function () {
+    Route::post('/', [NotebookController::class, 'store']);
+    Route::put('/{id}', [NotebookController::class, 'update']);
+    Route::get('/get/all', [NotebookController::class, 'all']);
+    Route::get('/', [NotebookController::class, 'paginate']);
+    Route::get('/{id}', [NotebookController::class, 'show']);
+    Route::delete('/{id}', [NotebookController::class, 'destroy']);
 });
