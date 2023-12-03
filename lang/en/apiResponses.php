@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'unauthorized' => 'Unauthorized.',
+    'unauthenticated' => 'Unauthenticated.',
+    'tokenRevoked' => 'Tokens Revoked.',
+    'invalidUrl' => 'Invalid/Expired url provided.',
+    'emailAlreadyVerified' => 'Email already verified.',
+    'linkEmailVerificationSent' => 'Email verification link sent on your email id.',
+    'emailNotVerified' => 'Email address not verified.',
+    'unprocessableEntity' => 'Unprocessable Entity',
+    'emailSent' => 'Email verification was sent',
+    'UserNotSaved' => 'Error. User can not be saved',
+    'UserNotUpdated' => 'Error. User can not be updated',
+    'UserNotFound' => 'User not found',
+    'UserNotDeleted' => 'Error. User can not be deleted',
+    'UserPasswordNotReseted' => 'Error. Password can not be reset',
+    'invalidCnpjRequest' => 'Error to get CNPJ data',
+    'TooManyRequest' => 'Too many requests! Please try again after 1 minute',
+    'invalidCep' => 'Cep not found',
+    'authenticationFailed' => 'Authentication failed. Please, check your email and password.',
+    'invalidTenant' => 'Unprocessable Entity. Invalid request.',
+    'emailVerified' => 'Email has been verified.',
+    'fileNotSent' => 'File not sent.',
+];
