@@ -2,20 +2,21 @@
 
 namespace App\Repositories;
 
+use App\Models\Bill;
 use App\Models\Tag;
+use App\Repositories\Interfaces\BillRepositoryInterface;
 use Exception;
-use App\Repositories\Interfaces\TagRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class TagRepository extends AbstractRepository implements TagRepositoryInterface
+class BillRepository extends AbstractRepository implements BillRepositoryInterface
 {
     /**
-     * TagRepository constructor.
+     * BillRepository constructor.
      *
-     * @param Tag
+     * @param Bill
      */
-    public function __construct(Tag $model)
+    public function __construct(Bill $model)
     {
         parent::__construct($model);
     }
@@ -24,9 +25,9 @@ class TagRepository extends AbstractRepository implements TagRepositoryInterface
      * Find an Resource
      *
      * @param int $id
-     * @return Tag
+     * @return Bill
      */
-    public function find(int $id): ?Tag
+    public function find(int $id): ?Bill
     {
         try {
             return $this->model->find($id);
@@ -39,9 +40,9 @@ class TagRepository extends AbstractRepository implements TagRepositoryInterface
      * Find or fail Resource
      *
      * @param int $id
-     * @return Tag
+     * @return Bill
      */
-    public function findOrFail(int $id): ?Tag
+    public function findOrFail(int $id): ?Bill
     {
         try {
             return $this->model->findOrFail($id);

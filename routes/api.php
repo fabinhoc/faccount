@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\NotebookController;
 use App\Http\Controllers\TagController;
 use Illuminate\Http\Request;
@@ -53,4 +54,13 @@ Route::group(['prefix' => '/tag', 'middleware' => 'auth:sanctum', 'verified'], f
     Route::get('/', [TagController::class, 'paginate']);
     Route::get('/{id}', [TagController::class, 'show']);
     Route::delete('/{id}', [TagController::class, 'destroy']);
+});
+
+Route::group(['prefix' => '/bill', 'middleware' => 'auth:sanctum', 'verified'], function () {
+    Route::post('/', [BillController::class, 'store']);
+    Route::put('/{id}', [BillController::class, 'update']);
+    Route::get('/get/all', [BillController::class, 'all']);
+    Route::get('/', [BillController::class, 'paginate']);
+    Route::get('/{id}', [BillController::class, 'show']);
+    Route::delete('/{id}', [BillController::class, 'destroy']);
 });
