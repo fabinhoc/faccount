@@ -6,8 +6,10 @@ use App\Models\Bill;
 use App\Models\Tag;
 use App\Repositories\Interfaces\BillRepositoryInterface;
 use Exception;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
 class BillRepository extends AbstractRepository implements BillRepositoryInterface
 {
@@ -65,6 +67,20 @@ class BillRepository extends AbstractRepository implements BillRepositoryInterfa
                 : 'ASC';
 
             return $this->model->searchable($request)->orderBy($column, $direction)->paginate($per_page);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function findByNotebookIdAndYearAndMonth(int $notebookId, string $year, string $month): ?Collection
+    {
+        try {
+            return $this->model
+                ->where('notebook_id', $notebookId)
+                ->findByYear($year)
+                ->findByMonth($month)
+                ->get();
+
         } catch (Exception $e) {
             throw $e;
         }

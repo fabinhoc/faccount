@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Scopes\LoggedUserScope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -44,5 +45,15 @@ class Bill extends Model
     protected static function booted(): void
     {
         static::addGlobalScope(new LoggedUserScope);
+    }
+
+    public function scopeFindByYear(Builder $query, string $year): void
+    {
+        $query->whereYear('due_date', '=', $year);
+    }
+
+    public function scopeFindByMonth(Builder $query, string $month): void
+    {
+        $query->whereMonth('due_date', '=', $month);
     }
 }

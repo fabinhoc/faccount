@@ -76,4 +76,13 @@ class BillService implements BillServiceInterface
             throw $exception;
         }
     }
+
+    public function findByNotebookIdAndYearAndMonth(int $notebookId, string $year, string $month): Collection
+    {
+        try {
+            return $this->repository->findByNotebookIdAndYearAndMonth($notebookId, $year, $month);
+        } catch (Throwable $exception) {
+            throw $exception;
+        }
+    }
 }
