@@ -20,7 +20,7 @@ class StoreBillRequest extends AbstractRequest
             'is_paid' => ['nullable', 'boolean'],
             'total_paid' => ['nullable', 'decimal:0,2'],
             'due_date' => ['required', 'date_format:Y-m-d'],
-            'tag_id' => ['integer', 'exists:tags,id'],
+            'tag_id' => ['nullable', 'integer', 'exists:tags,id'],
             'notebook_id' => ['integer', 'exists:notebooks,id']
         ];
     }

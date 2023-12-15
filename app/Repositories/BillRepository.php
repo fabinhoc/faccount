@@ -79,6 +79,7 @@ class BillRepository extends AbstractRepository implements BillRepositoryInterfa
                 ->where('notebook_id', $notebookId)
                 ->findByYear($year)
                 ->findByMonth($month)
+                ->with('tag')
                 ->get();
 
         } catch (Exception $e) {
