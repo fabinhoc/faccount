@@ -185,4 +185,31 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+    /*
+    |--------------------------------------------------------------------------
+    | SOCIAL MEDIA
+    |--------------------------------------------------------------------------
+    |
+    | These configuration options determine the social media url sent by email
+    | footer
+    |
+    |
+    */
+    'linkedin_url' => env('LINKEDIN_URL') ?? '',
+    'instagram_url' => env('INSTAGRAM_URL') ?? '',
+    'facebook_url' => env('FACEBOOK_URL') ?? '',
+    'twitter_url' => env('TWITTER_URL') ?? '',
+
+    /*
+    |--------------------------------------------------------------------------
+    | SPA URL
+    |--------------------------------------------------------------------------
+    |
+    | These configuration about spas
+    |
+    |
+    |
+    */
+    'spa_url' => env('SPA_URL') ?? '',
+
 ];
