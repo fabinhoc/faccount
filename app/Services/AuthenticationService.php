@@ -49,9 +49,6 @@ class AuthenticationService implements AuthenticationServiceInterface
             if (!$user) {
                 throw new Exception(__('apiResponses.UserNotFound'), 400);
             }
-            if (!$user->hasVerifiedEmail()) {
-                throw new Exception(__('apiResponses.emailNotVerified'), 400);
-            }
             if (!Auth::attempt($request->only(['email', 'password']))) {
                 throw new Exception(__('apiResponses.authenticationFailed'), 400);
             }

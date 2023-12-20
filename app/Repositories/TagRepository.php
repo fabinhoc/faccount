@@ -29,7 +29,7 @@ class TagRepository extends AbstractRepository implements TagRepositoryInterface
     public function find(int $id): ?Tag
     {
         try {
-            return $this->model->loggedUser()->find($id);
+            return $this->model->find($id);
         } catch (Exception $e) {
             throw $e;
         }
@@ -44,7 +44,7 @@ class TagRepository extends AbstractRepository implements TagRepositoryInterface
     public function findOrFail(int $id): ?Tag
     {
         try {
-            return $this->model->loggedUser()->findOrFail($id);
+            return $this->model->findOrFail($id);
         } catch (Exception $e) {
             throw $e;
         }
@@ -63,7 +63,7 @@ class TagRepository extends AbstractRepository implements TagRepositoryInterface
                 ? 'DESC'
                 : 'ASC';
 
-            return $this->model->searchable($request)->loggedUser()->orderBy($column, $direction)->paginate($per_page);
+            return $this->model->searchable($request)->orderBy($column, $direction)->paginate($per_page);
         } catch (Exception $e) {
             throw $e;
         }

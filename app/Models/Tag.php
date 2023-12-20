@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\LoggedUserScope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -22,13 +23,16 @@ class Tag extends Model
         return $query->where('user_id', auth()->user()->id);
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
     public function scopeSearchable($query, Request $request)
     {
         // Todo: Implement
+    }
+
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new LoggedUserScope);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\BillRepository;
+use App\Repositories\Interfaces\BillRepositoryInterface;
 use App\Repositories\Interfaces\NotebookRepositoryInterface;
 use App\Repositories\Interfaces\TagRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
@@ -20,6 +22,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(NotebookRepositoryInterface::class, NotebookRepository::class);
         $this->app->bind(TagRepositoryInterface::class, TagRepository::class);
+        $this->app->bind(BillRepositoryInterface::class, BillRepository::class);
     }
 
     /**

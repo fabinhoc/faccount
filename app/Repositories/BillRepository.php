@@ -2,44 +2,34 @@
 
 namespace App\Repositories;
 
+use App\Models\Bill;
+use App\Models\Tag;
+use App\Repositories\Interfaces\BillRepositoryInterface;
 use Exception;
-use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
-use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
-class UserRepository extends AbstractRepository implements UserRepositoryInterface
+class BillRepository extends AbstractRepository implements BillRepositoryInterface
 {
     /**
-     * UserRepository constructor.
+     * BillRepository constructor.
      *
-     * @param User
+     * @param Bill
      */
-    public function __construct(User $model)
+    public function __construct(Bill $model)
     {
         parent::__construct($model);
-    }
-
-    /**
-     * @param string $email
-     * @return User
-     */
-    public function findByEmail(string $email): ?User
-    {
-        try {
-            return $this->model->where('email', $email)->first();
-        } catch (Exception $e) {
-            throw $e;
-        }
     }
 
     /**
      * Find an Resource
      *
      * @param int $id
-     * @return User
+     * @return Bill
      */
-    public function find(int $id): ?User
+    public function find(int $id): ?Bill
     {
         try {
             return $this->model->find($id);
@@ -52,9 +42,9 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
      * Find or fail Resource
      *
      * @param int $id
-     * @return User
+     * @return Bill
      */
-    public function findOrFail(int $id): ?User
+    public function findOrFail(int $id): ?Bill
     {
         try {
             return $this->model->findOrFail($id);
@@ -77,6 +67,21 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
                 : 'ASC';
 
             return $this->model->searchable($request)->orderBy($column, $direction)->paginate($per_page);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function findByNotebookIdAndYearAndMonth(int $notebookId, string $year, string $month): ?Collection
+    {
+        try {
+            return $this->model
+                ->where('notebook_id', $notebookId)
+                ->findByYear($year)
+                ->findByMonth($month)
+                ->with('tag')
+                ->get();
+
         } catch (Exception $e) {
             throw $e;
         }

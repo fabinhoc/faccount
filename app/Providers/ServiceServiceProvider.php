@@ -3,11 +3,15 @@
 namespace App\Providers;
 
 use App\Services\AuthenticationService;
+use App\Services\BillService;
 use App\Services\Interfaces\AuthenticationServiceInterface;
+use App\Services\Interfaces\BillServiceInterface;
 use App\Services\Interfaces\NotebookServiceInterface;
 use App\Services\Interfaces\TagServiceInterface;
+use App\Services\Interfaces\UserServiceInterface;
 use App\Services\NotebookService;
 use App\Services\TagService;
+use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
 
 class ServiceServiceProvider extends ServiceProvider
@@ -20,6 +24,8 @@ class ServiceServiceProvider extends ServiceProvider
         $this->app->bind(AuthenticationServiceInterface::class, AuthenticationService::class);
         $this->app->bind(NotebookServiceInterface::class, NotebookService::class);
         $this->app->bind(TagServiceInterface::class, TagService::class);
+        $this->app->bind(BillServiceInterface::class, BillService::class);
+        $this->app->bind(UserServiceInterface::class, UserService::class);
     }
 
     /**

@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\NotebookController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,8 +19,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => '/user'], function () {
+    Route::get('/{id}', [UserController::class, 'show']);
+    Route::put('/{id}', [UserController::class, 'update']);
+    Route::delete('/{id}', [UserController::class, 'destroy']);
+    Route::put('/{id}/change-password', [UserController::class, 'changePassword']);
 });
 
 Route::group(['prefix' => '/auth'], function () {
@@ -53,4 +58,14 @@ Route::group(['prefix' => '/tag', 'middleware' => 'auth:sanctum', 'verified'], f
     Route::get('/', [TagController::class, 'paginate']);
     Route::get('/{id}', [TagController::class, 'show']);
     Route::delete('/{id}', [TagController::class, 'destroy']);
+});
+
+Route::group(['prefix' => '/bill', 'middleware' => 'auth:sanctum', 'verified'], function () {
+    Route::post('/', [BillController::class, 'store']);
+    Route::put('/{id}', [BillController::class, 'update']);
+    Route::get('/get/all', [BillController::class, 'all']);
+    Route::get('/', [BillController::class, 'paginate']);
+    Route::get('/{id}', [BillController::class, 'show']);
+    Route::delete('/{id}', [BillController::class, 'destroy']);
+    Route::get('/{notebookId}/{year}/{month}', [BillController::class, 'findByNotebookIdAndYearAndMonth']);
 });
