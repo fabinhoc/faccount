@@ -27,7 +27,7 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
     public function findByEmail(string $email): ?User
     {
         try {
-            return $this->model->first();
+            return $this->model->where('email', $email)->first();
         } catch (Exception $e) {
             throw $e;
         }

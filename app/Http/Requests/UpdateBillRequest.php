@@ -16,7 +16,7 @@ class UpdateBillRequest extends AbstractRequest
         return [
             'name' => ['nullable'],
             'description' => ['nullable'],
-            'price' => ['nullable', 'decimal', 'decimal:0,2'],
+            'price' => ['nullable', 'decimal:0,2'],
             'is_paid' => ['nullable', 'boolean'],
             'total_paid' => ['nullable', 'decimal:0,2'],
             'due_date' => ['nullable', 'date_format:Y-m-d'],
