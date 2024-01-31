@@ -26,7 +26,7 @@ class TagRepository extends AbstractRepository implements TagRepositoryInterface
      * @param int $id
      * @return Tag
      */
-    public function find(int $id): ?Tag
+    public function find(int | array $id): ?Tag
     {
         try {
             return $this->model->find($id);

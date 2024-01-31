@@ -29,7 +29,7 @@ class BillRepository extends AbstractRepository implements BillRepositoryInterfa
      * @param int $id
      * @return Bill
      */
-    public function find(int $id): ?Bill
+    public function find(int | array $id): ?Bill
     {
         try {
             return $this->model->find($id);
@@ -82,6 +82,15 @@ class BillRepository extends AbstractRepository implements BillRepositoryInterfa
                 ->with('tag')
                 ->get();
 
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function createMany(array $data): bool
+    {
+        try {
+            return $this->model->insert($data);
         } catch (Exception $e) {
             throw $e;
         }

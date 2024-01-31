@@ -68,4 +68,5 @@ Route::group(['prefix' => '/bill', 'middleware' => 'auth:sanctum', 'verified'], 
     Route::get('/{id}', [BillController::class, 'show']);
     Route::delete('/{id}', [BillController::class, 'destroy']);
     Route::get('/{notebookId}/{year}/{month}', [BillController::class, 'findByNotebookIdAndYearAndMonth']);
+    Route::post('/duplicate', [BillController::class, 'duplicateBills']);
 });

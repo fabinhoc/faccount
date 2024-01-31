@@ -27,7 +27,7 @@ interface BaseRepositoryInterface
     *
     * @return Model
     */
-    public function find(int $id): ?Model;
+    public function find(int | array $id): ?Model;
 
     /**
      * Find or fail model

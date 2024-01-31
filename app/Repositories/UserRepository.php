@@ -39,7 +39,7 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
      * @param int $id
      * @return User
      */
-    public function find(int $id): ?User
+    public function find(int | array $id): ?User
     {
         try {
             return $this->model->find($id);

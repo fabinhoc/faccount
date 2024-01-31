@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DuplicateBilRequest;
 use App\Http\Requests\StoreBillRequest;
 use App\Http\Requests\UpdateBillRequest;
 use App\Services\Interfaces\BillServiceInterface;
@@ -84,6 +85,16 @@ class BillController extends Controller
     {
         try {
             $response = $this->service->findByNotebookIdAndYearAndMonth($notebookId, $year, $month);
+            return $this->success($response);
+        } catch (Exception $e) {
+            return $this->error($e->getMessage(), $e->getCode() ? $e->getCode() : 422);
+        }
+    }
+
+    public function duplicateBills(DuplicateBilRequest $request)
+    {
+        try {
+            $response = $this->service->duplicateBills($request);
             return $this->success($response);
         } catch (Exception $e) {
             return $this->error($e->getMessage(), $e->getCode() ? $e->getCode() : 422);

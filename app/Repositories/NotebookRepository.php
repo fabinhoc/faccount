@@ -27,7 +27,7 @@ class NotebookRepository extends AbstractRepository implements NotebookRepositor
      * @param int $id
      * @return Notebook
      */
-    public function find(int $id): ?Notebook
+    public function find(int | array $id): ?Notebook
     {
         try {
             return $this->model->find($id);

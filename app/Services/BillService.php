@@ -2,15 +2,18 @@
 
 namespace App\Services;
 
+use App\Http\Requests\DuplicateBilRequest;
 use App\Http\Requests\StoreBillRequest;
 use App\Http\Requests\UpdateBillRequest;
 use App\Models\Bill;
 use App\Repositories\Interfaces\BillRepositoryInterface;
 use Throwable;
 use App\Services\Interfaces\BillServiceInterface;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
 class BillService implements BillServiceInterface
 {
@@ -81,6 +84,46 @@ class BillService implements BillServiceInterface
     {
         try {
             return $this->repository->findByNotebookIdAndYearAndMonth($notebookId, $year, $month);
+        } catch (Throwable $exception) {
+            throw $exception;
+        }
+    }
+
+    public function duplicateBills(DuplicateBilRequest $request): bool
+    {
+        try {
+            DB::transaction(function() use ($request) {
+                $bills = $this->repository->findByNotebookIdAndYearAndMonth(
+                    $request->notebook_id,
+                    $request->year,
+                    $request->month
+                );
+                $duplicateBills = [];
+                foreach($bills as $bill) {
+                    $dueDate = Carbon::createFromFormat('Y-m-d', $bill->due_date);
+                    $newDueDate = Carbon::createFromFormat(
+                        'Y-m-d',
+                        "$request->duplicateYear-$request->duplicateMonth-$dueDate->day"
+                    );
+                    $bill->due_date = $newDueDate;
+
+                    $splitBills = [
+                        'name' => $bill->name,
+                        'description' => $bill->description,
+                        'price' => $bill->price,
+                        'is_paid' => $bill->is_paid,
+                        'total_paid' => $bill->total_paid,
+                        'due_date' => $newDueDate,
+                        'tag_id' => $bill->tag_id,
+                        'notebook_id' => $bill->notebook_id,
+                        'user_id' => $bill->user_id
+                    ];
+                    array_push($duplicateBills, $splitBills);
+                }
+                $this->repository->createMany($duplicateBills);
+                return true;
+            });
+            return false;
         } catch (Throwable $exception) {
             throw $exception;
         }
