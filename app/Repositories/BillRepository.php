@@ -95,4 +95,13 @@ class BillRepository extends AbstractRepository implements BillRepositoryInterfa
             throw $e;
         }
     }
+
+    public function destroyMany(array $ids): bool
+    {
+        try {
+            return $this->model->destroy($ids);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
 }

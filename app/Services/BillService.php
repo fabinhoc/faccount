@@ -128,4 +128,16 @@ class BillService implements BillServiceInterface
             throw $exception;
         }
     }
+
+    public function destroyMany(int $notebookId, string $year, string $month): bool
+    {
+        try {
+            $bills = $this->repository->findByNotebookIdAndYearAndMonth($notebookId, $year, $month);
+            $pluckedIds = collect($bills)->pluck('id');
+
+            return $this->repository->destroyMany($pluckedIds->all());
+        } catch (Throwable $exception) {
+            throw $exception;
+        }
+    }
 }

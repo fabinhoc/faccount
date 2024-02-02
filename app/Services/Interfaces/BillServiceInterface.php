@@ -17,4 +17,6 @@ interface BillServiceInterface extends BaseServiceInterface
     public function findByNotebookIdAndYearAndMonth(int $notebookId, string $year, string $month): Collection;
 
     public function duplicateBills(DuplicateBilRequest $request): bool;
+
+    public function destroyMany(int $notebookId, string $year, string $month): bool;
 }

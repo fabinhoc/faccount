@@ -100,4 +100,14 @@ class BillController extends Controller
             return $this->error($e->getMessage(), $e->getCode() ? $e->getCode() : 422);
         }
     }
+
+    public function destroyMany(int $notebookId, string $year, string $month)
+    {
+        try {
+            $response = $this->service->destroyMany($notebookId, $year, $month);
+            return $this->success($response);
+        } catch (Exception $e) {
+            return $this->error($e->getMessage(), $e->getCode() ? $e->getCode() : 422);
+        }
+    }
 }
